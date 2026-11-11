@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "seed": "node seed-members.js"
+    "seed": "node seed-members.js",
+    "export": "node export-members.js",
+    "export:seed": "node export-members.js --seed"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

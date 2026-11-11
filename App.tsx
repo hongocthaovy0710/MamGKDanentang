@@ -40,8 +40,11 @@ async function api<T>(path: string, token?: string, options: RequestInit = {}): 
 }
 
 export default function App() {
-  const { width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const wide = width >= 760;
+  const loginViewportStyle = Platform.OS === 'web'
+    ? { height: '100vh' as unknown as number, minHeight: '100vh' as unknown as number }
+    : { minHeight: height };
   const [token, setToken] = useState('');
   const [adminEmail, setAdminEmail] = useState('');
   const [email, setEmail] = useState('');
@@ -169,8 +172,8 @@ export default function App() {
   if (!token) {
     return (
       <ScrollView
-        style={styles.loginPage}
-        contentContainerStyle={styles.loginPageContent}
+        style={[styles.loginPage, loginViewportStyle]}
+        contentContainerStyle={[styles.loginPageContent, loginViewportStyle]}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
       >
@@ -268,7 +271,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   loginPage: { flex: 1, backgroundColor: '#fbf9f4' },
-  loginPageContent: { flexGrow: 1, minHeight: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
+  loginPageContent: { flexGrow: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'stretch', alignContent: 'stretch' },
   loginArtwork: { flex: 1, minWidth: 320, minHeight: 560, backgroundColor: '#dce8d8', padding: 54, justifyContent: 'center', overflow: 'hidden' },
   loginArtworkMobile: { flex: 0, width: '100%', minWidth: 0, minHeight: 0, height: 245, paddingHorizontal: 25, paddingTop: 48, paddingBottom: 10, justifyContent: 'center' },
   artCircleOne: { position: 'absolute', width: 400, height: 400, borderRadius: 220, backgroundColor: '#cadcc8', top: -120, right: -130 },
